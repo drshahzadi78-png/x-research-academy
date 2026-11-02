@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!--
+  YOUR FIRST WEBSITE
+  One file, three languages:
+    HTML = the content and structure (between <body> tags)
+    CSS  = the looks (inside <style>)
+    JS   = the behavior (inside <script>)
+  Open this file in a browser, edit it in any text editor, save, refresh.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- Makes the page fit phone screens properly -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The title shows on the browser tab -->
+  <title>My First Website</title>
+
+  <style>
+    /* ---------- CSS ---------- */
+
+    /* Variables: change a color here and it updates everywhere.
+       TRY THIS: change --accent to #d6336c and refresh. */
+    :root {
+      --bg: #eef2f7;
+      --card: #ffffff;
+      --ink: #1b2433;
+      --muted: #5b6678;
+      --accent: #2f5bea;
+      --mark: #ffd84d;
+    }
+    /* The JavaScript below switches to this set of colors */
+    :root[data-theme="night"] {
+      --bg: #141a26;
+      --card: #1e2638;
+      --ink: #eef2f7;
+      --muted: #a3adc0;
+      --accent: #8fb0ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    /* A centered column that is never wider than 40rem (1rem = one text size) */
+    main {
+      max-width: 40rem;
+      margin: 0 auto;
+      padding: 3rem 1.25rem 4rem;
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.2rem, 7vw, 3.4rem);  /* grows and shrinks with the screen */
+      line-height: 1.1;
+      margin: 0 0 0.5rem;
+    }
+    /* The yellow highlighter effect behind the name */
+    h1 span { background: linear-gradient(transparent 60%, var(--mark) 60%); }
+
+    h2 { font-size: 1.25rem; margin: 0 0 0.75rem; }
+    p  { margin: 0 0 1rem; max-width: 60ch; }
+    .lead { color: var(--muted); font-size: 1.1rem; }
+
+    /* A box for each section */
+    section {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    ul { margin: 0; padding-left: 1.2rem; }
+    li { margin-bottom: 0.35rem; }
+
+    a { color: var(--accent); }
+
+    input, button {
+      font: inherit;
+      padding: 0.6rem 0.9rem;
+      border-radius: 8px;
+      border: 2px solid var(--muted);
+      background: var(--card);
+      color: var(--ink);
+    }
+    button {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      cursor: pointer;
+    }
+    /* Only the night theme needs dark text on its lighter button */
+    :root[data-theme="night"] button { color: #141a26; }
+
+    /* Keyboard users can see where they are */
+    input:focus-visible, button:focus-visible { outline: 3px solid var(--mark); outline-offset: 2px; }
+
+    .row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  </style>
+</head>
+
+<body>
+  <!-- ---------- HTML ---------- -->
+  <main>
+    <!-- TRY THIS: replace "Your Name" with your real name -->
+    <h1>Hello, I’m <span id="name">Your Name</span></h1>
+    <p class="lead">This is my first website, and I’m building it to learn how the web works.</p>
+
+    <section>
+      <h2>About me</h2>
+      <!-- Each <p> is a paragraph. Write two sentences about yourself. -->
+      <p>I live in Bangladesh and I’m learning to build websites with HTML, CSS and JavaScript.</p>
+      <p>My goal is to make something useful and share it with other people.</p>
+    </section>
+
+    <section>
+      <h2>Things I enjoy</h2>
+      <!-- <ul> is a bullet list and each <li> is one bullet. Add your own! -->
+      <ul>
+        <li>Learning new skills</li>
+        <li>Reading</li>
+        <li>Spending time with friends</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Make it yours</h2>
+      <p>Type your name and press the button. This is JavaScript changing the page while you watch.</p>
+      <div class="row">
+        <input id="nameInput" type="text" placeholder="Your name" aria-label="Your name">
+        <button id="nameButton">Update my name</button>
+        <button id="themeButton">Switch theme</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Where to learn more</h2>
+      <p>The <a href="https://developer.mozilla.org/en-US/docs/Learn" target="_blank" rel="noopener">MDN Learn Web Development</a> guide is free and written for beginners.</p>
+    </section>
+  </main>
+
+  <script>
+    /* ---------- JavaScript ---------- */
+
+    // Step 1: grab the page elements we want to control, using their id names
+    const nameText   = document.getElementById("name");
+    const nameInput  = document.getElementById("nameInput");
+    const nameButton = document.getElementById("nameButton");
+    const themeButton = document.getElementById("themeButton");
+
+    // Step 2: say what should happen when each button is clicked
+    nameButton.addEventListener("click", function () {
+      const typed = nameInput.value.trim();   // trim() removes extra spaces
+      if (typed !== "") {                     // only change it if something was typed
+        nameText.textContent = typed;
+      }
+    });
+
+    themeButton.addEventListener("click", function () {
+      const root = document.documentElement;  // the <html> element
+      // If it is already "night", go back to normal. Otherwise switch to "night".
+      if (root.dataset.theme === "night") {
+        delete root.dataset.theme;
+      } else {
+        root.dataset.theme = "night";
+      }
+    });
+
+    // TRY THIS: add a third button in the HTML that changes the heading to
+    // say "Welcome!" when clicked. You will need a new id and a new listener.
+  </script>
+</body>
+</html>
